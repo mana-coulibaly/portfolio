@@ -1760,3 +1760,21 @@ body {
 .portfolio-mf .title-a { color: var(--portfolio-text); font-size: clamp(32px, 5vw, 52px); text-transform: none; }
 @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } .skill-group { min-height: auto; } }
 @media (max-width: 768px) { .hero-section { min-height: auto; padding: 130px 0 70px; } .hero-container { grid-template-columns: 1fr; gap: 45px; } .hero-copy h1 { font-size: 60px; } .hero-visual { min-height: 390px; } .hero-floating-card { right: 5%; } }
+
+/* Tablet layout: keep the information cards wide enough to remain readable. */
+@media (max-width: 1100px) {
+  .about-mf .box-shadow-full > .row > .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .about-mf .box-shadow-full > .row > .col-md-6:first-child {
+    border-right: 0;
+    border-bottom: 1px solid rgba(137, 173, 220, .16);
+    padding-bottom: 28px;
+  }
+
+  .about-mf .box-shadow-full > .row > .col-md-6:last-child {
+    padding-top: 28px;
+  }
+}
