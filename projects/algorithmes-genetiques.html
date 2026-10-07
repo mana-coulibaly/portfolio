@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Algorithmes génétiques | Mana Coulibaly</title>
+  <link rel="stylesheet" href="project.css">
+  <style>
+    .genetic-game { display: grid; grid-template-columns: 1fr 280px; gap: 24px; }
+    .game-board { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+    .game-topline { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 22px; }
+    .target { padding: 12px 16px; border-radius: 12px; color: #fff; background: linear-gradient(135deg,#2878f0,#7b61ff); font-weight: 700; }
+    .population { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: end; min-height: 260px; padding: 22px 12px 0; border-bottom: 2px solid var(--line); }
+    .individual { position: relative; display: flex; flex-direction: column; justify-content: end; gap: 8px; min-height: 220px; text-align: center; }
+    .individual-body { height: var(--height); min-height: 30px; border-radius: 12px 12px 4px 4px; background: linear-gradient(#72c6ff,#2878f0); transition: height .35s, filter .35s; }
+    .individual.best .individual-body { background: linear-gradient(#7ce5b0,#21a179); box-shadow: 0 0 0 4px #c8f2dd; }
+    .individual small { color: var(--muted); font-size: 11px; }
+    .fitness { font-weight: 700; }
+    .game-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 22px; }
+    .game-side { padding: 22px; border-radius: 18px; color: #d9e7ff; background: #172235; }
+    .game-side h2 { color: #fff; font-size: 20px; }
+    .game-side p { color: #aebdd2; line-height: 1.6; }
+    .score-big { margin: 18px 0; color: #7ce5b0; font-size: 42px; font-weight: 700; }
+    .event-log { max-height: 145px; overflow: auto; margin: 0; padding-left: 18px; color: #aebdd2; font-size: 12px; line-height: 1.8; }
+    .win-message { display: none; margin-top: 18px; padding: 14px; border-radius: 10px; color: #135d3f; background: #d9f7e7; font-weight: 700; }
+    @media (max-width: 780px) { .genetic-game { grid-template-columns: 1fr; } .population { gap: 6px; } }
+  </style>
+</head>
+<body>
+  <main class="project-shell">
+    <nav class="project-nav"><strong>Mana Coulibaly</strong><a href="../index.html#work">← Retour aux projets</a></nav>
+    <header class="project-hero">
+      <p class="eyebrow">Mini-jeu local · Optimisation</p>
+      <h1>Fais évoluer la population</h1>
+      <p class="lead">Sélectionne les meilleurs individus, applique une mutation et rapproche progressivement la population de la cible.</p>
+    </header>
+    <section class="genetic-game" aria-label="Jeu de simulation génétique">
+      <div class="game-board">
+        <div class="game-topline"><strong>Population actuelle</strong><span class="target">Cible : 100%</span></div>
+        <div class="population" id="population"></div>
+        <div class="game-controls"><button id="evolve">Faire évoluer</button><button class="secondary" id="reset">Nouvelle partie</button><span>Génération : <strong id="generation">0</strong></span></div>
+        <div class="win-message" id="win">Objectif atteint ! La population a convergé vers la cible.</div>
+      </div>
+      <aside class="game-side"><h2>Laboratoire</h2><p>Chaque génération conserve les meilleurs scores, puis applique une mutation aléatoire aux autres individus.</p><div class="score-big"><span id="score">42</span>%</div><p>Meilleur score</p><ul class="event-log" id="log"><li>Population initialisée</li></ul></aside>
+    </section>
+  </main>
+  <script>
+    const populationElement = document.querySelector('#population');
+    const generationElement = document.querySelector('#generation');
+    const scoreElement = document.querySelector('#score');
+    const logElement = document.querySelector('#log');
+    const winElement = document.querySelector('#win');
+    let generation = 0;
+    let population = [42, 57, 34, 68, 49];
+    function render() {
+      const best = Math.max(...population);
+      populationElement.innerHTML = population.map((value, index) => `<div class="individual ${value === best ? 'best' : ''}"><div class="individual-body" style="--height:${Math.max(30, value * 2.1)}px"></div><span class="fitness">${value}%</span><small>Individu ${index + 1}</small></div>`).join('');
+      generationElement.textContent = generation;
+      scoreElement.textContent = best;
+      winElement.style.display = best >= 100 ? 'block' : 'none';
+    }
+    function addLog(message) { const item = document.createElement('li'); item.textContent = message; logElement.prepend(item); while (logElement.children.length > 5) logElement.lastElementChild.remove(); }
+    document.querySelector('#evolve').addEventListener('click', () => { const best = Math.max(...population); population = population.map(value => Math.min(100, Math.max(value, Math.round(value + (best - value) * .35 + Math.random() * 14 - 4)))); generation += 1; addLog(`Génération ${generation} : sélection et mutation appliquées`); render(); });
+    document.querySelector('#reset').addEventListener('click', () => { generation = 0; population = [42, 57, 34, 68, 49]; logElement.innerHTML = '<li>Population initialisée</li>'; render(); });
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projet final SDD1003 | Mana Coulibaly</title>
+  <meta name="description" content="Présentation du projet final SDD1003 de Mana Coulibaly : application web et apprentissage automatique.">
+  <link rel="icon" href="../img/MC-favicon.jpg">
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top navbar-reduce" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">Mana Coulibaly</a>
+      <a class="nav-link" href="../index.html#work">← Retour aux projets</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="project-detail-hero">
+      <div class="container">
+        <p class="project-eyebrow">Projet sélectionné · 2024</p>
+        <h1>Application web et apprentissage automatique</h1>
+        <p class="lead">Un projet académique combinant développement web, traitement de données et exploration d’algorithmes d’apprentissage automatique.</p>
+        <div class="project-detail-actions">
+          <a class="button button-a button-big button-rouded" href="https://github.com/mana-coulibaly/Projet-Final-SDD1003" target="_blank" rel="noopener noreferrer">Voir le code sur GitHub ↗</a>
+          <a class="button button-a button-big button-rouded button-outline" href="../index.html#contact">Me contacter</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="project-detail-content section-mf">
+      <div class="container">
+        <div class="row">
+          <article class="col-lg-8">
+            <h2>Le projet</h2>
+            <p>Ce projet final a été réalisé dans le cadre de la formation SDD1003. L’objectif était de concevoir une expérience web permettant de présenter et d’exploiter des méthodes d’apprentissage automatique de manière accessible.</p>
+
+            <h2>Objectifs</h2>
+            <ul>
+              <li>Structurer et préparer les données nécessaires à l’analyse.</li>
+              <li>Implémenter et comparer des approches d’apprentissage automatique.</li>
+              <li>Présenter les résultats dans une interface web claire.</li>
+              <li>Documenter les choix techniques et les limites du modèle.</li>
+            </ul>
+
+            <h2>Ce que j’ai réalisé</h2>
+            <p>J’ai participé à la conception de l’application, à l’implémentation des traitements et à l’intégration des résultats dans l’interface. Le projet m’a permis de renforcer mes compétences en analyse, en programmation et en vulgarisation de résultats techniques.</p>
+
+            <h2>Aperçu visuel</h2>
+            <div class="project-preview-note">
+              <strong>Frontend disponible dans le dépôt GitHub.</strong>
+              <p>Le code client se trouve dans <code>Client/Client/soft-ui-dashboard-main</code>. Il n’est pas encore déployé publiquement ; la prochaine étape sera de publier une démonstration accessible depuis cette page.</p>
+              <a class="project-sidebar-link" href="https://github.com/mana-coulibaly/Projet-Final-SDD1003/tree/main/Client/Client/soft-ui-dashboard-main" target="_blank" rel="noopener noreferrer">Consulter le frontend sur GitHub ↗</a>
+            </div>
+
+            <div class="local-dashboard" aria-label="Simulation locale du frontend">
+              <div class="dashboard-sidebar">
+                <strong>Analytics</strong>
+                <button class="dashboard-tab active" data-view="overview">Vue d’ensemble</button>
+                <button class="dashboard-tab" data-view="models">Modèles</button>
+                <button class="dashboard-tab" data-view="data">Données</button>
+              </div>
+              <div class="dashboard-main">
+                <div class="dashboard-header"><span id="dashboard-title">Vue d’ensemble</span><span class="dashboard-user">Projet SDD1003</span></div>
+                <div class="dashboard-metrics"><div><strong>87%</strong><small>Précision moyenne</small></div><div><strong>24</strong><small>Expériences</small></div><div><strong>1.8s</strong><small>Temps moyen</small></div></div>
+                <div class="dashboard-panel" id="dashboard-content"><h4>Performance du modèle</h4><div class="dashboard-chart"><span style="height:42%"></span><span style="height:58%"></span><span style="height:51%"></span><span style="height:73%"></span><span style="height:87%"></span><span style="height:82%"></span></div><div class="dashboard-axis"><span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span></div></div>
+              </div>
+            </div>
+          </article>
+
+          <aside class="col-lg-4">
+            <div class="project-detail-sidebar box-shadow-full">
+              <h2>Technologies</h2>
+              <div class="project-tags"><span>Python</span><span>JavaScript</span><span>Machine learning</span></div>
+              <hr>
+              <h2>Type</h2>
+              <p>Projet académique · Application web</p>
+              <h2>Liens</h2>
+              <a class="project-sidebar-link" href="https://github.com/mana-coulibaly/Projet-Final-SDD1003" target="_blank" rel="noopener noreferrer">Dépôt GitHub ↗</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="project-detail-footer">
+    <div class="container">© Mana Coulibaly · <a href="../index.html">Retour à l’accueil</a></div>
+  </footer>
+  <script>
+    const dashboardTitles = { overview: 'Vue d’ensemble', models: 'Modèles', data: 'Données' };
+    const dashboardContent = {
+      overview: '<h4>Performance du modèle</h4><div class="dashboard-chart"><span style="height:42%"></span><span style="height:58%"></span><span style="height:51%"></span><span style="height:73%"></span><span style="height:87%"></span><span style="height:82%"></span></div><div class="dashboard-axis"><span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span></div>',
+      models: '<h4>Modèles entraînés</h4><p>Classification · 87% de précision</p><p>Régression · 81% de précision</p><p>Clustering · 74% de cohésion</p>',
+      data: '<h4>Jeu de données</h4><p>1 248 observations analysées</p><p>12 variables sélectionnées</p><p>Dernière mise à jour : aujourd’hui</p>'
+    };
+    document.querySelectorAll('.dashboard-tab').forEach(tab => tab.addEventListener('click', () => {
+      document.querySelectorAll('.dashboard-tab').forEach(item => item.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector('#dashboard-title').textContent = dashboardTitles[tab.dataset.view];
+      document.querySelector('#dashboard-content').innerHTML = dashboardContent[tab.dataset.view];
+    }));
+  </script>
+</body>
+</html>

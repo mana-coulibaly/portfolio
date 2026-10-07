@@ -89,29 +89,26 @@ jQuery(document).ready(function($) {
       }
     });
     if (ferror) return false;
-    else var str = $(this).serialize();
-    var action = $(this).attr('action');
-    if( ! action ) {
-      action = 'contactform/contactform.php';
+    var form = this;
+    var recipient = 'mana.coulibaly@uqtr.ca';
+    var subject = encodeURIComponent($(form).find('[name="subject"]').val());
+    var phone = $(form).find('[name="phone"]').val().trim();
+    var phoneLine = phone ? 'Téléphone : ' + phone + '\n' : '';
+    var body = encodeURIComponent(
+      'Nom : ' + $(form).find('[name="name"]').val() + '\n' +
+      'Courriel : ' + $(form).find('[name="email"]').val() + '\n\n' +
+      phoneLine + '\n' +
+      $(form).find('[name="message"]').val()
+    );
+    $(form).find("#sendmessage").addClass("show");
+    $(form).find("#errormessage").removeClass("show");
+    var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + recipient + '&su=' + subject + '&body=' + body;
+    var message = decodeURIComponent(body);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(message).catch(function () {});
     }
-    $.ajax({
-      type: "POST",
-      url: action,
-      data: str,
-      success: function(msg) {
-        // alert(msg);
-        if (msg == 'OK') {
-          $("#sendmessage").addClass("show");
-          $("#errormessage").removeClass("show");
-          $('.contactForm').find("input, textarea").val("");
-        } else {
-          $("#sendmessage").removeClass("show");
-          $("#errormessage").addClass("show");
-          $('#errormessage').html(msg);
-        }
-
-      }
-    });
+    var composeWindow = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+    if (!composeWindow) window.location.href = gmailUrl;
     return false;
   });
 
