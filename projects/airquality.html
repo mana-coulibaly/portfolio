@@ -67,6 +67,7 @@
     </header>
     <div class="project-actions air-actions">
       <a class="button" href="https://github.com/mana-coulibaly/airquality-frontend" target="_blank" rel="noopener noreferrer">Voir le frontend GitHub ↗</a>
+      <a class="button alt" href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">Ouvrir l’API ↗</a>
       <a class="button alt" href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Voir les modèles ↗</a>
     </div>
     <section class="air-dashboard" aria-label="Tableau de bord de qualité de l’air">
@@ -77,7 +78,7 @@
       </div>
       <div class="pollutants"><article class="pollutant"><small>PM2.5</small><strong id="pm25">12 µg/m³</strong><span>Dans la norme</span></article><article class="pollutant"><small>PM10</small><strong id="pm10">24 µg/m³</strong><span>Stable</span></article><article class="pollutant"><small>Température</small><strong id="temperature">18°C</strong><span>Conditions favorables</span></article></div>
       <div class="controls"><div><label for="scenario">Scénario contrefactuel · réduction du NO₂ <span class="control-value" id="scenarioValue">20%</span></label><input id="scenario" type="range" min="0" max="60" value="20"></div><button id="simulate">Simuler l’impact</button></div>
-      <p class="api-note">Cette démonstration utilise des données locales. Les routes prévues pour connecter le backend sont <code>/config</code>, <code>/predict</code> et <code>/whatif</code>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
+      <p class="api-note">Le backend est disponible sur Render. Les routes <code>/config</code>, <code>/predict</code> et <code>/whatif</code> sont accessibles via l’<a href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">API Swagger ↗</a>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
     </section>
   </main>
   <script>
