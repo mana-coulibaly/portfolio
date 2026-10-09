@@ -48,3 +48,49 @@ button.secondary { color: var(--ink); background: #e8eef7; }
 .button { display: inline-block; padding: 12px 18px; border-radius: 9px; color: white; background: var(--blue); }
 .button.alt { color: var(--ink); background: #e8eef7; }
 @media (max-width: 700px) { .project-nav { margin-bottom: 48px; } .preview-grid { grid-template-columns: 1fr; } .metric-row { grid-template-columns: 1fr; } .life-grid { gap: 2px; } }
+
+/* Keep text readable on the light simulation surfaces. */
+.preview-sidebar,
+.preview-card,
+.metric,
+.log-box,
+.air-dashboard,
+.air-card,
+.game-board,
+.mosque-preview {
+  color: #10223d;
+}
+
+.preview-card h2,
+.preview-card h3,
+.metric strong,
+.log-box h2,
+.air-dashboard > .air-top > strong,
+.air-card strong,
+.game-board strong,
+.fitness,
+.mosque-preview strong {
+  color: #10223d;
+}
+
+.preview-card .lead,
+.preview-sidebar p,
+.metric small,
+.log-meta,
+.air-city,
+.air-labels,
+.air-card small,
+.individual small,
+.mosque-card p {
+  color: #536b86 !important;
+}
+
+.preview-sidebar p:first-child {
+  color: #ffffff;
+}
+
+.button.alt,
+button.secondary {
+  color: #10223d;
+  border: 1px solid #c5d3e2;
+}

@@ -1,4 +1,94 @@
 <!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Qualité de l’air | Mana Coulibaly</title><link rel="stylesheet" href="project.css"><style>.air-dashboard{padding:24px;border:1px solid var(--line);border-radius:18px;background:#fff}.air-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.air-city{color:var(--muted)}.air-main{display:grid;grid-template-columns:220px 1fr;gap:22px}.air-index{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:220px;border-radius:16px;color:#fff;background:linear-gradient(145deg,#21a179,#2878f0)}.air-index strong{font-size:70px;line-height:1}.air-chart{display:flex;align-items:end;gap:10px;height:220px;padding:20px;border-bottom:1px solid var(--line)}.air-bar{flex:1;border-radius:7px 7px 0 0;background:linear-gradient(#72c6ff,#2878f0)}.air-labels{display:flex;justify-content:space-around;color:var(--muted);font-size:11px}.air-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.air-card{padding:15px;border:1px solid var(--line);border-radius:10px}.air-card strong{display:block;font-size:22px}.air-card small{color:var(--muted)}@media(max-width:700px){.air-main{grid-template-columns:1fr}.air-cards{grid-template-columns:1fr}}</style></head>
-<body><main class="project-shell"><nav class="project-nav"><strong>Mana Coulibaly</strong><a href="../index.html#work">← Retour aux projets</a></nav><header class="project-hero"><p class="eyebrow">Simulation locale · TypeScript et data</p><h1>Qualité de l’air</h1><p class="lead">Un tableau de bord pour visualiser l’indice de qualité de l’air et les principaux polluants d’une ville.</p><div class="project-actions"><a class="button" href="https://github.com/mana-coulibaly/airquality-frontend" target="_blank" rel="noopener noreferrer">Frontend GitHub ↗</a><a class="button alt" href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Modèles GitHub ↗</a></div></header><section class="air-dashboard"><div class="air-top"><strong>Tableau de bord environnemental</strong><span class="air-city">Montréal · Aujourd’hui</span></div><div class="air-main"><div class="air-index"><small>Indice actuel</small><strong id="index">42</strong><span id="quality">Bon</span></div><div><div class="air-chart" id="chart"><span class="air-bar" style="height:42%"></span><span class="air-bar" style="height:55%"></span><span class="air-bar" style="height:38%"></span><span class="air-bar" style="height:62%"></span><span class="air-bar" style="height:48%"></span><span class="air-bar" style="height:67%"></span></div><div class="air-labels"><span>08h</span><span>10h</span><span>12h</span><span>14h</span><span>16h</span><span>18h</span></div></div></div><div class="air-cards"><div class="air-card"><strong>12 µg/m³</strong><small>PM2.5</small></div><div class="air-card"><strong>24 µg/m³</strong><small>PM10</small></div><div class="air-card"><strong>18°C</strong><small>Température</small></div></div><button id="refresh">Actualiser les données</button></section></main><script>document.querySelector('#refresh').onclick=()=>{const value=Math.floor(25+Math.random()*45);document.querySelector('#index').textContent=value;document.querySelector('#quality').textContent=value<50?'Bon':'Modéré';document.querySelectorAll('.air-bar').forEach(bar=>bar.style.height=(25+Math.random()*60)+'%')};</script></body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Air Quality · Application web | Mana Coulibaly</title>
+  <link rel="stylesheet" href="project.css">
+  <style>
+    :root { --aq-bg: #071525; --aq-panel: #102238; --aq-panel-2: #162d45; --aq-text: #f1f7ff; --aq-muted: #9eb4ca; --aq-line: rgba(174, 211, 240, .14); --aq-cyan: #51ddff; --aq-green: #62e3a5; --aq-orange: #ffc56b; }
+    body { background: radial-gradient(circle at 10% 0%, #123b58 0, transparent 35%), var(--aq-bg); }
+    .project-shell { max-width: 1180px; }
+    .project-nav { margin-bottom: 56px; }
+    .project-nav strong { color: var(--aq-text); }
+    .project-nav a { color: var(--aq-cyan); }
+    .air-hero { display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 28px; align-items: end; margin-bottom: 34px; }
+    .air-hero h1 { max-width: 760px; margin-bottom: 18px; }
+    .air-hero .lead { max-width: 690px; }
+    .availability { display: flex; gap: 9px; align-items: center; width: fit-content; margin-top: 24px; padding: 9px 12px; border: 1px solid rgba(98, 227, 165, .28); border-radius: 999px; color: #bcefd5; background: rgba(98, 227, 165, .08); font-size: 13px; }
+    .availability i { width: 8px; height: 8px; border-radius: 50%; background: var(--aq-green); box-shadow: 0 0 14px var(--aq-green); }
+    .hero-stat { padding: 22px; border: 1px solid var(--aq-line); border-radius: 20px; background: linear-gradient(145deg, rgba(35, 75, 105, .9), rgba(12, 31, 51, .92)); box-shadow: 0 18px 50px rgba(0,0,0,.2); }
+    .hero-stat small, .section-kicker { color: var(--aq-cyan); letter-spacing: 1.5px; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+    .hero-stat strong { display: block; margin: 7px 0 4px; color: var(--aq-text); font-size: 38px; }
+    .hero-stat span { color: var(--aq-muted); font-size: 13px; }
+    .air-actions { margin: 0 0 28px; }
+    .air-dashboard { padding: 26px; border: 1px solid var(--aq-line); border-radius: 26px; background: linear-gradient(145deg, rgba(15, 36, 58, .98), rgba(8, 23, 39, .98)); box-shadow: 0 24px 70px rgba(0,0,0,.25); }
+    .dashboard-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .dashboard-head h2 { margin: 5px 0 0; color: var(--aq-text); font-size: 23px; }
+    .city-select { padding: 10px 13px; border: 1px solid var(--aq-line); border-radius: 10px; color: var(--aq-text); background: var(--aq-panel-2); }
+    .air-overview { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 18px; }
+    .aqi-card { display: flex; min-height: 260px; flex-direction: column; justify-content: center; align-items: center; padding: 24px; border-radius: 20px; color: var(--aq-text); background: linear-gradient(145deg, #1da984, #237cf0); text-align: center; }
+    .aqi-ring { display: grid; width: 146px; height: 146px; place-items: center; margin: 10px 0 14px; border: 10px solid rgba(255,255,255,.23); border-top-color: #fff; border-right-color: rgba(255,255,255,.75); border-radius: 50%; transform: rotate(28deg); }
+    .aqi-ring strong { font-size: 54px; transform: rotate(-28deg); }
+    .aqi-card small { color: rgba(255,255,255,.78); }
+    .aqi-card span { font-size: 18px; font-weight: 700; }
+    .trend-card { padding: 21px; border: 1px solid var(--aq-line); border-radius: 20px; background: rgba(21, 47, 72, .72); }
+    .trend-top { display: flex; justify-content: space-between; color: var(--aq-muted); font-size: 13px; }
+    .trend-top strong { color: var(--aq-green); font-size: 14px; }
+    .air-chart { display: flex; height: 205px; align-items: end; gap: 10px; padding: 25px 8px 0; border-bottom: 1px solid var(--aq-line); }
+    .chart-column { display: flex; flex: 1; height: 100%; flex-direction: column; align-items: center; justify-content: end; gap: 8px; }
+    .chart-bar { width: min(34px, 72%); min-height: 14px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, var(--aq-cyan), #2878f0); box-shadow: 0 8px 20px rgba(42, 145, 255, .2); transition: height .35s ease; }
+    .chart-column span { color: var(--aq-muted); font-size: 11px; }
+    .pollutants { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    .pollutant { padding: 17px; border: 1px solid var(--aq-line); border-radius: 15px; background: rgba(18, 42, 65, .8); }
+    .pollutant small { color: var(--aq-muted); }
+    .pollutant strong { display: block; margin: 7px 0 3px; color: var(--aq-text); font-size: 25px; }
+    .pollutant span { color: var(--aq-green); font-size: 12px; }
+    .controls { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; margin-top: 25px; padding-top: 22px; border-top: 1px solid var(--aq-line); }
+    .controls label { display: block; margin-bottom: 9px; color: var(--aq-muted); font-size: 13px; }
+    .controls input { width: 100%; accent-color: var(--aq-cyan); }
+    .control-value { color: var(--aq-text); font-weight: 700; }
+    .api-note { margin-top: 18px; color: var(--aq-muted); font-size: 12px; }
+    .api-note a { color: var(--aq-cyan); }
+    @media (max-width: 760px) { .air-hero, .air-overview { grid-template-columns: 1fr; } .hero-stat { max-width: none; } .pollutants { grid-template-columns: 1fr; } .controls { grid-template-columns: 1fr; } .dashboard-head { align-items: flex-start; flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <main class="project-shell">
+    <nav class="project-nav"><strong>Mana Coulibaly</strong><a href="../index.html#work">← Retour aux projets</a></nav>
+    <header class="air-hero">
+      <div>
+        <p class="eyebrow">Projet data · TypeScript, Python et visualisation</p>
+        <h1>Comprendre la qualité de l’air en un coup d’œil.</h1>
+        <p class="lead">Une interface de suivi qui transforme les mesures environnementales en indicateurs clairs, tendances lisibles et scénarios faciles à comparer.</p>
+        <div class="availability"><i></i> Démonstration locale interactive</div>
+      </div>
+      <div class="hero-stat"><small>Indice actuel</small><strong id="heroIndex">42</strong><span>Qualité bonne · Montréal</span></div>
+    </header>
+    <div class="project-actions air-actions">
+      <a class="button" href="https://github.com/mana-coulibaly/airquality-frontend" target="_blank" rel="noopener noreferrer">Voir le frontend GitHub ↗</a>
+      <a class="button alt" href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Voir les modèles ↗</a>
+    </div>
+    <section class="air-dashboard" aria-label="Tableau de bord de qualité de l’air">
+      <div class="dashboard-head"><div><span class="section-kicker">Tableau de bord</span><h2>Vue environnementale</h2></div><select class="city-select" id="city"><option>Montréal</option><option>Trois-Rivières</option><option>Québec</option></select></div>
+      <div class="air-overview">
+        <article class="aqi-card"><small>Indice de qualité de l’air</small><div class="aqi-ring"><strong id="index">42</strong></div><span id="quality">Bon</span></article>
+        <article class="trend-card"><div class="trend-top"><span>Évolution sur 24 heures</span><strong id="trend">-8% cette semaine</strong></div><div class="air-chart" id="chart"></div></article>
+      </div>
+      <div class="pollutants"><article class="pollutant"><small>PM2.5</small><strong id="pm25">12 µg/m³</strong><span>Dans la norme</span></article><article class="pollutant"><small>PM10</small><strong id="pm10">24 µg/m³</strong><span>Stable</span></article><article class="pollutant"><small>Température</small><strong id="temperature">18°C</strong><span>Conditions favorables</span></article></div>
+      <div class="controls"><div><label for="scenario">Scénario contrefactuel · réduction du NO₂ <span class="control-value" id="scenarioValue">20%</span></label><input id="scenario" type="range" min="0" max="60" value="20"></div><button id="simulate">Simuler l’impact</button></div>
+      <p class="api-note">Cette démonstration utilise des données locales. Les routes prévues pour connecter le backend sont <code>/config</code>, <code>/predict</code> et <code>/whatif</code>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
+    </section>
+  </main>
+  <script>
+    const chart = document.querySelector('#chart');
+    const bars = [42, 55, 38, 62, 48, 67, 51, 58];
+    function renderChart(values) { chart.innerHTML = values.map((value, index) => `<div class="chart-column"><div class="chart-bar" style="height:${value}%"></div><span>${String(index * 3).padStart(2, '0')}h</span></div>`).join(''); }
+    function updateScenario() { const value = document.querySelector('#scenario').value; document.querySelector('#scenarioValue').textContent = `${value}%`; }
+    document.querySelector('#scenario').addEventListener('input', updateScenario);
+    document.querySelector('#simulate').addEventListener('click', () => { const reduction = Number(document.querySelector('#scenario').value); const index = Math.max(18, 42 - Math.round(reduction * .45)); document.querySelector('#index').textContent = index; document.querySelector('#heroIndex').textContent = index; document.querySelector('#quality').textContent = index < 35 ? 'Très bon' : 'Bon'; document.querySelector('#trend').textContent = `-${Math.max(8, Math.round(reduction / 2))}% cette semaine`; renderChart(bars.map(value => Math.max(24, value - reduction * .35))); });
+    document.querySelector('#city').addEventListener('change', event => { const city = event.target.value; const values = city === 'Québec' ? [35, 44, 39, 52, 43, 57, 46, 50] : city === 'Trois-Rivières' ? [49, 61, 45, 70, 55, 72, 59, 64] : bars; const index = Math.round(values.reduce((sum, value) => sum + value, 0) / values.length); document.querySelector('#index').textContent = index; document.querySelector('#heroIndex').textContent = index; document.querySelector('.hero-stat span').textContent = `Qualité ${index < 50 ? 'bonne' : 'modérée'} · ${city}`; renderChart(values); });
+    renderChart(bars);
+  </script>
+</body>
+</html>
