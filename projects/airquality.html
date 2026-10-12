@@ -61,11 +61,12 @@
         <p class="eyebrow">Projet data · TypeScript, Python et visualisation</p>
         <h1>Comprendre la qualité de l’air en un coup d’œil.</h1>
         <p class="lead">Une interface de suivi qui transforme les mesures environnementales en indicateurs clairs, tendances lisibles et scénarios faciles à comparer.</p>
-        <div class="availability"><i></i> Démonstration locale interactive</div>
+        <div class="availability"><i></i> Application déployée · frontend et API disponibles</div>
       </div>
       <div class="hero-stat"><small>Indice actuel</small><strong id="heroIndex">42</strong><span>Qualité bonne · Montréal</span></div>
     </header>
     <div class="project-actions air-actions">
+      <a class="button" href="https://airquality-frontend-0sb2.onrender.com/" target="_blank" rel="noopener noreferrer">Tester l’application ↗</a>
       <a class="button" href="https://github.com/mana-coulibaly/airquality-frontend" target="_blank" rel="noopener noreferrer">Voir le frontend GitHub ↗</a>
       <a class="button alt" href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">Ouvrir l’API ↗</a>
       <a class="button alt" href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Voir les modèles ↗</a>
@@ -78,7 +79,7 @@
       </div>
       <div class="pollutants"><article class="pollutant"><small>PM2.5</small><strong id="pm25">12 µg/m³</strong><span>Dans la norme</span></article><article class="pollutant"><small>PM10</small><strong id="pm10">24 µg/m³</strong><span>Stable</span></article><article class="pollutant"><small>Température</small><strong id="temperature">18°C</strong><span>Conditions favorables</span></article></div>
       <div class="controls"><div><label for="scenario">Scénario contrefactuel · réduction du NO₂ <span class="control-value" id="scenarioValue">20%</span></label><input id="scenario" type="range" min="0" max="60" value="20"></div><button id="simulate">Simuler l’impact</button></div>
-      <p class="api-note">Le backend est disponible sur Render. Les routes <code>/config</code>, <code>/predict</code> et <code>/whatif</code> sont accessibles via l’<a href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">API Swagger ↗</a>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
+      <p class="api-note">Les données initiales proviennent du jeu AirQualityUCI, disponible sur Kaggle. L’application publique utilise un frontend déployé sur Render et une API FastAPI séparée. Les routes <code>/config</code>, <code>/predict</code> et <code>/whatif</code> sont documentées dans l’<a href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">API Swagger ↗</a>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
     </section>
   </main>
   <script>
