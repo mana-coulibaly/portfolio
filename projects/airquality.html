@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Air Quality · Application web | Mana Coulibaly</title>
+  <title>Air Quality Analysis · Application web | Mana Coulibaly</title>
   <link rel="stylesheet" href="project.css">
   <style>
     :root { --aq-bg: #071525; --aq-panel: #102238; --aq-panel-2: #162d45; --aq-text: #f1f7ff; --aq-muted: #9eb4ca; --aq-line: rgba(174, 211, 240, .14); --aq-cyan: #51ddff; --aq-green: #62e3a5; --aq-orange: #ffc56b; }
@@ -50,7 +50,15 @@
     .control-value { color: var(--aq-text); font-weight: 700; }
     .api-note { margin-top: 18px; color: var(--aq-muted); font-size: 12px; }
     .api-note a { color: var(--aq-cyan); }
-    @media (max-width: 760px) { .air-hero, .air-overview { grid-template-columns: 1fr; } .hero-stat { max-width: none; } .pollutants { grid-template-columns: 1fr; } .controls { grid-template-columns: 1fr; } .dashboard-head { align-items: flex-start; flex-direction: column; } }
+    .air-explainer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
+    .air-explainer article { padding: 22px; border: 1px solid var(--aq-line); border-radius: 18px; background: rgba(21, 47, 72, .72); }
+    .air-explainer article.current { border-color: rgba(81, 221, 255, .42); }
+    .air-explainer article.counterfactual { border-color: rgba(255, 197, 107, .5); }
+    .air-explainer h3 { margin: 0 0 8px; color: var(--aq-text); font-size: 17px; }
+    .air-explainer p { margin: 0; color: var(--aq-muted); font-size: 14px; line-height: 1.7; }
+    .air-explainer .cate-note { grid-column: 1 / -1; padding: 18px 22px; border-left: 3px solid var(--aq-cyan); border-radius: 0 14px 14px 0; background: rgba(81, 221, 255, .07); }
+    .air-explainer .cate-note strong { color: var(--aq-text); }
+    @media (max-width: 760px) { .air-hero, .air-overview, .air-explainer { grid-template-columns: 1fr; } .air-explainer .cate-note { grid-column: auto; } .hero-stat { max-width: none; } .pollutants { grid-template-columns: 1fr; } .controls { grid-template-columns: 1fr; } .dashboard-head { align-items: flex-start; flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -58,9 +66,9 @@
     <nav class="project-nav"><strong>Mana Coulibaly</strong><a href="../index.html#work">← Retour aux projets</a></nav>
     <header class="air-hero">
       <div>
-        <p class="eyebrow">Projet data · TypeScript, Python et visualisation</p>
-        <h1>Comprendre la qualité de l’air en un coup d’œil.</h1>
-        <p class="lead">Une interface de suivi qui transforme les mesures environnementales en indicateurs clairs, tendances lisibles et scénarios faciles à comparer.</p>
+        <p class="eyebrow">Projet data · TypeScript, Python, FastAPI et visualisation</p>
+        <h1>Air Quality Analysis : comprendre et simuler la qualité de l’air.</h1>
+        <p class="lead">Une application qui transforme les données AirQualityUCI en prédictions lisibles et permet de comparer la situation actuelle avec une variation virtuelle du NO₂.</p>
         <div class="availability"><i></i> Application déployée · frontend et API disponibles</div>
       </div>
       <div class="hero-stat"><small>Indice actuel</small><strong id="heroIndex">42</strong><span>Qualité bonne · Montréal</span></div>
@@ -80,6 +88,17 @@
       <div class="pollutants"><article class="pollutant"><small>PM2.5</small><strong id="pm25">12 µg/m³</strong><span>Dans la norme</span></article><article class="pollutant"><small>PM10</small><strong id="pm10">24 µg/m³</strong><span>Stable</span></article><article class="pollutant"><small>Température</small><strong id="temperature">18°C</strong><span>Conditions favorables</span></article></div>
       <div class="controls"><div><label for="scenario">Scénario contrefactuel · réduction du NO₂ <span class="control-value" id="scenarioValue">20%</span></label><input id="scenario" type="range" min="0" max="60" value="20"></div><button id="simulate">Simuler l’impact</button></div>
       <p class="api-note">Les données initiales proviennent du jeu AirQualityUCI, disponible sur Kaggle. L’application publique utilise un frontend déployé sur Render et une API FastAPI séparée. Les routes <code>/config</code>, <code>/predict</code> et <code>/whatif</code> sont documentées dans l’<a href="https://airquality-app.onrender.com/docs" target="_blank" rel="noopener noreferrer">API Swagger ↗</a>. <a href="https://github.com/mana-coulibaly/airquality-app" target="_blank" rel="noopener noreferrer">Consulter le dépôt des modèles ↗</a></p>
+    </section>
+    <section class="air-explainer" aria-label="Comprendre les scénarios de simulation">
+      <article class="current">
+        <h3>Scénario courant</h3>
+        <p>Le modèle analyse les valeurs saisies dans les curseurs. Sa confiance indique à quel point il est sûr de la classe prédite pour cette situation de départ.</p>
+      </article>
+      <article class="counterfactual">
+        <h3>Scénario contrefactuel</h3>
+        <p>Le modèle reprend les mêmes données, mais modifie uniquement le NO₂ selon le pourcentage choisi. On observe ainsi ce qui pourrait changer dans une expérience virtuelle.</p>
+      </article>
+      <p class="cate-note"><strong>À propos du CATE :</strong> il mesure la variation estimée du score pour une unité supplémentaire de NO₂ dans la situation actuelle. Une valeur de 0 signifie simplement que le modèle garde le même score sur cette petite variation ; une variation plus importante peut franchir un palier et produire un effet.</p>
     </section>
   </main>
   <script>
