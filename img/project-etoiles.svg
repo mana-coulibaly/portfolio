@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Génération d’étoiles en Python</title>
+  <desc id="desc">Constellation stylisée sur un fond bleu nuit.</desc>
+  <defs><radialGradient id="sky"><stop stop-color="#182e66"/><stop offset="1" stop-color="#060d22"/></radialGradient><filter id="glow"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1200" height="760" rx="34" fill="url(#sky)"/>
+  <g stroke="#5273bc" stroke-width="3" opacity=".65"><path d="M190 170L420 290L650 160L860 330L1030 220L930 540L680 455L420 600L250 440Z" fill="none"/><path d="M190 170L680 455M420 290L930 540M650 160L420 600M860 330L250 440" fill="none"/></g>
+  <g fill="#eaf7ff" filter="url(#glow)"><circle cx="190" cy="170" r="8"/><circle cx="420" cy="290" r="6"/><circle cx="650" cy="160" r="10"/><circle cx="860" cy="330" r="7"/><circle cx="1030" cy="220" r="9"/><circle cx="930" cy="540" r="7"/><circle cx="680" cy="455" r="11"/><circle cx="420" cy="600" r="8"/><circle cx="250" cy="440" r="6"/></g>
+  <g fill="#7ce7ff" opacity=".75"><circle cx="100" cy="310" r="3"/><circle cx="330" cy="100" r="4"/><circle cx="760" cy="90" r="3"/><circle cx="1100" cy="430" r="4"/><circle cx="560" cy="650" r="3"/><circle cx="1040" cy="650" r="3"/></g>
+  <g font-family="Arial,sans-serif" fill="#eaf7ff"><text x="96" y="688" font-size="28" letter-spacing="6" fill="#7ce7ff">PYTHON · ALGORITHMIQUE · CRÉATION</text></g>
+</svg>
